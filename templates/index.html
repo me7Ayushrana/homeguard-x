@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeGuard X | AI Digital Guardian</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="icon-shield"></div>
+                <h1>HomeGuard <span class="accent">X</span></h1>
+            </div>
+            <p class="subtitle">Agentic AI Guardian for Home IoT & Family Safety</p>
+        </header>
+
+        <section class="control-panel">
+            <div class="status-card">
+                <h2>System Status</h2>
+                <div class="status-indicator">
+                    <span class="dot pulse"></span> Agent System Active
+                </div>
+                <button id="scan-btn" onclick="startScan()">
+                    <span class="btn-text">Analyze Home Network</span>
+                    <div class="loader" id="loader"></div>
+                </button>
+            </div>
+             <div class="intro-text">
+                <p>This demo uses <strong>5 Autonomous AI Agents</strong> to simulate a security audit of your home network. No real data is sent to the cloud.</p>
+            </div>
+        </section>
+
+        <section id="results-area" class="results-grid">
+            <!-- Results injected here by JS -->
+        </section>
+
+    </div>
+
+    <script>
+        async function startScan() {
+            const btn = document.getElementById('scan-btn');
+            const loader = document.getElementById('loader');
+            const resultsArea = document.getElementById('results-area');
+            const btnText = btn.querySelector('.btn-text');
+
+            // UI Loading State
+            btn.disabled = true;
+            btnText.style.opacity = '0';
+            loader.style.display = 'block';
+            resultsArea.innerHTML = ''; // Clear previous
+
+            try {
+                // Simulate Agent Processing Delay (for dramatic effect)
+                await new Promise(r => setTimeout(r, 1500));
+
+                const response = await fetch('/api/scan');
+                const data = await response.json();
+
+                renderResults(data);
+
+            } catch (error) {
+                console.error("Scan failed", error);
+                resultsArea.innerHTML = '<p class="error">Agent System Offline. Check Console.</p>';
+            } finally {
+                // Reset UI
+                btn.disabled = false;
+                btnText.style.opacity = '1';
+                loader.style.display = 'none';
+                btnText.innerText = "Re-Scan Network";
+            }
+        }
+
+        function renderResults(data) {
+            const resultsArea = document.getElementById('results-area');
+            
+            if (data.length === 0) {
+                resultsArea.innerHTML = '<p>No devices found.</p>';
+                return;
+            }
+
+            data.forEach(item => {
+                const device = item.device;
+                const risk = item.risk;
+                const explanation = item.explanation;
+                const actions = item.actions;
+
+                // Determine Card Class based on Risk
+                const riskClass = risk.level.toLowerCase().replace(" ", "-");
+                
+                const card = document.createElement('div');
+                card.className = `device-card risk-${riskClass}`;
+
+                // Action List HTML
+                const actionHtml = actions.map(act => `<li>${act}</li>`).join('');
+
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="device-info">
+                            <h3>${device.device_type}</h3>
+                            <span class="vendor">${device.vendor}</span>
+                        </div>
+                        <div class="risk-badge ${riskClass}">${risk.level} Risk</div>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="metric-row">
+                             <div class="metric">
+                                <label>IP Address</label>
+                                <span>${device.ip_address}</span>
+                             </div>
+                             <div class="metric">
+                                <label>Score</label>
+                                <span>${risk.score}/100</span>
+                             </div>
+                        </div>
+
+                        <div class="explanation-box">
+                            <h4>Agent Analysis</h4>
+                            <p>${explanation}</p>
+                        </div>
+
+                        <div class="action-box">
+                            <h4>Recommended Actions</h4>
+                            <ul>${actionHtml}</ul>
+                        </div>
+                    </div>
+                `;
+                
+                resultsArea.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>

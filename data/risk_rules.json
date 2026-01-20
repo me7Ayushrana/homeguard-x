@@ -1,0 +1,64 @@
+{
+    "ports": {
+        "23": {
+            "risk_level": "High",
+            "title": "Insecure Telnet Service",
+            "description": "Port 23 allows unencrypted remote control. Hackers can easily intercept commands and passwords.",
+            "mitigation": "Disable remote administration in settings or block port 23 on your router."
+        },
+        "21": {
+            "risk_level": "Medium",
+            "title": "FTP File Transfer",
+            "description": "Port 21 is used for file transfers but is often unencrypted. Data can be intercepted.",
+            "mitigation": "Ensure you are using SFTP instead, or disable this service if not needed."
+        },
+        "554": {
+            "risk_level": "Medium",
+            "title": "RTSP Video Stream",
+            "description": "Port 554 is used for streaming video. If not password protected, anyone can watch the feed.",
+            "mitigation": "Set a strong password for the video stream in the device settings."
+        },
+        "80": {
+            "risk_level": "Low",
+            "title": "HTTP Web Interface",
+            "description": "Standard web interface. Ensure it is password protected.",
+            "mitigation": "No immediate action, but ensure the admin panel has a strong password."
+        }
+    },
+    "attributes": {
+        "default_password_detected": {
+            "true": {
+                "risk_level": "High",
+                "risk_score_impact": 50,
+                "title": "Default Password In Use",
+                "description": "This device is using a factory default password (e.g., 'admin'/'admin'). This is the #1 way devices are hacked.",
+                "mitigation": "Change the password IMMEDIATELY in the device settings."
+            }
+        },
+        "encryption": {
+            "none": {
+                "risk_level": "High",
+                "risk_score_impact": 40,
+                "title": "No Encryption",
+                "description": "Data sent by this device is not encrypted. Attackers on the network can see everything.",
+                "mitigation": "Check for firmware updates that enable encryption (SSL/TLS) or stop using this device for sensitive tasks."
+            },
+            "WEP": {
+                "risk_level": "High",
+                "risk_score_impact": 35,
+                "title": "Obsolete WEP Encryption",
+                "description": "WEP is an outdated security standard that can be cracked in minutes.",
+                "mitigation": "Reconfigure the device to use WPA2 or WPA3."
+            }
+        },
+        "firmware_version": {
+            "obsolete": {
+                "risk_level": "Medium",
+                "risk_score_impact": 20,
+                "title": "Outdated Firmware",
+                "description": "The device software is old and may contain known security holes.",
+                "mitigation": "Go to the manufacturer's website or app and update the firmware."
+            }
+        }
+    }
+}

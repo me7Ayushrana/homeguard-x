@@ -1,0 +1,67 @@
+[
+    {
+        "id": "dev_001",
+        "mac_address": "AA:BB:CC:11:22:33",
+        "ip_address": "192.168.1.10",
+        "vendor": "Unknown_Shenzhen_Co",
+        "device_type": "IP Camera",
+        "firmware_version": "1.0.0",
+        "open_ports": [80, 554, 23],
+        "default_password_detected": true,
+        "traffic_pattern": "high_outbound",
+        "encryption": "none",
+        "last_seen_location": "Living Room"
+    },
+    {
+        "id": "dev_002",
+        "mac_address": "DD:EE:FF:44:55:66",
+        "ip_address": "192.168.1.15",
+        "vendor": "Google",
+        "device_type": "Smart Speaker",
+        "firmware_version": "Auto-Update",
+        "open_ports": [443, 8008, 8009],
+        "default_password_detected": false,
+        "traffic_pattern": "cloud_sync",
+        "encryption": "TLS 1.3",
+        "last_seen_location": "Kitchen"
+    },
+    {
+        "id": "dev_003",
+        "mac_address": "11:22:33:AA:BB:CC",
+        "ip_address": "192.168.1.20",
+        "vendor": "Generic_Smart_Plug",
+        "device_type": "Smart Plug",
+        "firmware_version": "2.1",
+        "open_ports": [80],
+        "default_password_detected": false,
+        "traffic_pattern": "periodic",
+        "encryption": "WEP",
+        "last_seen_location": "Bedroom"
+    },
+    {
+        "id": "dev_004",
+        "mac_address": "99:88:77:66:55:44",
+        "ip_address": "192.168.1.50",
+        "vendor": "SafeHome_Inc",
+        "device_type": "Baby Monitor",
+        "firmware_version": "0.9.beta",
+        "open_ports": [8080, 554],
+        "default_password_detected": true,
+        "traffic_pattern": "streaming",
+        "encryption": "none",
+        "last_seen_location": "Nursery"
+    },
+    {
+        "id": "dev_005",
+        "mac_address": "AA:AA:AA:BB:BB:BB",
+        "ip_address": "192.168.1.101",
+        "vendor": "Philips",
+        "device_type": "Smart Bulb Bridge",
+        "firmware_version": "LATEST",
+        "open_ports": [80, 443],
+        "default_password_detected": false,
+        "traffic_pattern": "local_only",
+        "encryption": "Zigbee_Encrypted",
+        "last_seen_location": "Hallway"
+    }
+]
